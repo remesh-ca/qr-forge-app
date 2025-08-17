@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import QrCodeItem from "./QrCodeItem";
-import { QrOptions } from "./Sidebar"; // Import QrOptions type
-import QRCodeStyling, { Options as QRCodeStylingOptions } from "qr-code-styling"; // Import QRCodeStyling
+import { QrOptions } from "./Sidebar";
+import QRCodeStyling, { Options as QRCodeStylingOptions } from "qr-code-styling";
 
 interface QrGridProps {
   codes: string[];
@@ -15,8 +15,8 @@ interface QrGridProps {
 export default function QrGrid({ codes, qrOptions }: QrGridProps) {
   const downloadQrCode = (code: string, index: number) => {
     const options: QRCodeStylingOptions = {
-      width: qrOptions.size, // Use user-selected size for download
-      height: qrOptions.size, // Use user-selected size for download
+      width: qrOptions.size,
+      height: qrOptions.size,
       data: code,
       margin: 5,
       type: qrOptions.fileExtension === "svg" ? "svg" : "canvas",
