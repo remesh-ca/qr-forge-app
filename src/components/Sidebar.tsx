@@ -42,7 +42,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const [foregroundColor, setForegroundColor] = useState("#000000");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [logo, setLogo] = useState<File | null>(null);
+  // const [logo, setLogo] = useState<File | null>(null); // Removed
   const [logoPreview, setLogoPreview] = useState<string | undefined>();
   const [qrSize, setQrSize] = useState(200);
   const [fileExtension, setFileExtension] = useState<"png" | "svg">("png");
@@ -100,7 +100,7 @@ export default function Sidebar({
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setLogo(file);
+      // setLogo(file); // Removed
       const reader = new FileReader();
       reader.onload = (event) => {
         const newLogoPreview = event.target?.result as string;
@@ -108,7 +108,7 @@ export default function Sidebar({
       };
       reader.readAsDataURL(file);
     } else {
-      setLogo(null);
+      // setLogo(null); // Removed
       setLogoPreview(undefined);
     }
   };

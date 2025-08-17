@@ -24,7 +24,7 @@ export default function DataTable({ data }: DataTableProps) {
       <CardHeader>
         <CardTitle>Step 2: Preview Your Data</CardTitle>
         <CardDescription>
-          Here's a preview of your CSV data. Use the sidebar to select the columns you want to include in the QR codes.
+          Here&apos;s a preview of your CSV data. Use the sidebar to select the columns you want to include in the QR codes.
         </CardDescription>
       </CardHeader>
       <CardContent>
