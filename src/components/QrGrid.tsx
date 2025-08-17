@@ -52,8 +52,18 @@ export default function QrGrid({ codes, qrOptions }: QrGridProps) {
       <CardHeader>
         <CardTitle>Step 3: Your QR Codes</CardTitle>
         <CardDescription>
-          Here are your generated QR codes. Use the sidebar to download them in
-          different formats.
+          Here are your generated QR codes. You can either download them separately or download them together{" "}
+          <a
+            href="#download-options"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("download-options")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="text-primary underline cursor-pointer"
+          >
+            <b>(bulk download) here.</b>
+          </a>{" "}
+          You can change the format as well.
         </CardDescription>
       </CardHeader>
       <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">

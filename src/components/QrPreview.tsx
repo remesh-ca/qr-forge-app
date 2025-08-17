@@ -43,7 +43,7 @@ export default function QrPreview({ qrOptions }: QrPreviewProps) {
       const qrElement =
         ref.current.querySelector("canvas") || ref.current.querySelector("svg");
       if (qrElement) {
-        qrElement.style.width = "100%";
+        qrElement.style.width = "85%";
         qrElement.style.height = "auto";
         qrElement.style.display = "block";
       }
@@ -51,9 +51,11 @@ export default function QrPreview({ qrOptions }: QrPreviewProps) {
   }, [qrOptions]);
 
   return (
+    <>
     <div
-      ref={ref}
-      className="w-full flex flex-col justify-center items-center aspect-square"
-    ></div>
+        ref={ref}
+        className="w-full flex flex-col justify-center items-center aspect-square"
+      ></div>
+    </>
   );
 }

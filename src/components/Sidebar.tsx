@@ -1,11 +1,23 @@
 import { useState, useEffect, useRef } from "react"; // Import useRef
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { FileDown, FileText } from "lucide-react";
 import QrPreview from "./QrPreview";
 import useDebounce from "@/hooks/useDebounce";
@@ -66,12 +78,21 @@ export default function Sidebar({
     };
 
     // Only call setQrOptions if the options have actually changed
-    if (JSON.stringify(currentQrOptions) !== JSON.stringify(prevQrOptionsRef.current)) {
+    if (
+      JSON.stringify(currentQrOptions) !==
+      JSON.stringify(prevQrOptionsRef.current)
+    ) {
       setQrOptions(currentQrOptions);
       prevQrOptionsRef.current = currentQrOptions; // Update the ref
     }
-  }, [debouncedForegroundColor, debouncedBackgroundColor, logoPreview, debouncedQrSize, fileExtension, setQrOptions]);
-
+  }, [
+    debouncedForegroundColor,
+    debouncedBackgroundColor,
+    logoPreview,
+    debouncedQrSize,
+    fileExtension,
+    setQrOptions,
+  ]);
 
   const handleSelectAll = (checked: boolean) => {
     setSelectedColumns(checked ? headers : []);
@@ -87,12 +108,16 @@ export default function Sidebar({
     setSelectedColumns(newSelectedColumns);
   };
 
-  const handleForegroundColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleForegroundColorChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newColor = e.target.value;
     setForegroundColor(newColor);
   };
 
-  const handleBackgroundColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBackgroundColorChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newColor = e.target.value;
     setBackgroundColor(newColor);
   };
@@ -124,7 +149,11 @@ export default function Sidebar({
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold">Columns to Include</h3>
-            <Button variant="link" size="sm" onClick={() => handleSelectAll(!allSelected)}>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => handleSelectAll(!allSelected)}
+            >
               {allSelected ? "Deselect All" : "Select All"}
             </Button>
           </div>
@@ -136,7 +165,9 @@ export default function Sidebar({
                   checked={selectedColumns.includes(header)}
                   onCheckedChange={() => handleCheckboxChange(header)}
                 />
-                <Label htmlFor={header} className="font-normal">{header}</Label>
+                <Label htmlFor={header} className="font-normal">
+                  {header}
+                </Label>
               </div>
             ))}
           </div>
@@ -150,16 +181,34 @@ export default function Sidebar({
           <div className="flex gap-4">
             <div className="space-y-2 flex-grow">
               <Label>Foreground</Label>
-              <Input type="color" value={foregroundColor} onChange={handleForegroundColorChange} className="p-1"/>
+              <Input
+                type="color"
+                value={foregroundColor}
+                onChange={handleForegroundColorChange}
+                className="p-1"
+              />
             </div>
             <div className="space-y-2 flex-grow">
               <Label>Background</Label>
-              <Input type="color" value={backgroundColor} onChange={handleBackgroundColorChange} className="p-1"/>
+              <Input
+                type="color"
+                value={backgroundColor}
+                onChange={handleBackgroundColorChange}
+                className="p-1"
+              />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="qrSize">Size (px)</Label>
-            <Input id="qrSize" type="number" value={qrSize} onChange={(e) => setQrSize(Number(e.target.value))} min={50} max={1000} step={10} />
+            <Input
+              id="qrSize"
+              type="number"
+              value={qrSize}
+              onChange={(e) => setQrSize(Number(e.target.value))}
+              min={50}
+              max={1000}
+              step={10}
+            />
           </div>
           <div className="space-y-2">
             <Label>Logo</Label>
@@ -167,7 +216,10 @@ export default function Sidebar({
           </div>
           <div className="space-y-2">
             <Label htmlFor="outputFormat">Output Format</Label>
-            <Select value={fileExtension} onValueChange={(value: "png" | "svg") => setFileExtension(value)}>
+            <Select
+              value={fileExtension}
+              onValueChange={(value: "png" | "svg") => setFileExtension(value)}
+            >
               <SelectTrigger id="outputFormat">
                 <SelectValue placeholder="Select format" />
               </SelectTrigger>
@@ -177,8 +229,19 @@ export default function Sidebar({
               </SelectContent>
             </Select>
           </div>
+          <h3 className="font-semibold">Preview</h3>
+          <p>Note: This is jut a preview, actual QR codes are displayed above.</p>
+
           <div className="flex justify-center p-4 bg-muted rounded-md">
-            <QrPreview qrOptions={{ foregroundColor, backgroundColor, logo: logoPreview, size: qrSize, fileExtension }} />
+            <QrPreview
+              qrOptions={{
+                foregroundColor,
+                backgroundColor,
+                logo: logoPreview,
+                size: qrSize,
+                fileExtension,
+              }}
+            />
           </div>
         </div>
 
@@ -189,14 +252,24 @@ export default function Sidebar({
         <Separator />
 
         {/* Download Options */}
-        <div className="space-y-4">
+        <div className="space-y-4" id="download-options">
           <h3 className="font-semibold">Download Options</h3>
           <div className="space-y-2">
-            <Button variant="outline" className="w-full justify-start" disabled={!qrCodesGenerated} onClick={onDownloadZip}>
+            <Button
+              variant="outline"
+              className="w-full justify-start"
+              disabled={!qrCodesGenerated}
+              onClick={onDownloadZip}
+            >
               <FileDown className="h-4 w-4 mr-2" />
               Download all as ZIP
             </Button>
-            <Button variant="outline" className="w-full justify-start" disabled={!qrCodesGenerated} onClick={onDownloadPdf}>
+            <Button
+              variant="outline"
+              className="w-full justify-start"
+              disabled={!qrCodesGenerated}
+              onClick={onDownloadPdf}
+            >
               <FileText className="h-4 w-4 mr-2" />
               Export all to PDF
             </Button>
