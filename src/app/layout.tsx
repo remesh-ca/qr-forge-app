@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
-import Header from "@/components/Header"; // Import Header
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -19,15 +19,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+          <link rel="icon" href="public\qr-code-nav-title-icon.svg" type="image/svg+xml" />
+       </head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "flex flex-col min-h-screen bg-background font-sans antialiased",
           inter.variable
         )}
       >
         <Header />
-        {children}
+        <main className="flex-grow">
+          {children}
+        </main>
         <Toaster />
+        <footer className="py-4 text-center text-sm text-muted-foreground border-t mt-8">
+          &copy; {new Date().getFullYear()} Remesh. All rights reserved.
+        </footer>
       </body>
     </html>
   );
