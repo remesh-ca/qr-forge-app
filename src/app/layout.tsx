@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "QR Forge | CSV to QR Code Generator",
   description: "Easily convert your CSV data into QR codes.",
+  icons:{
+    icon: "/qr-code-nav-title-icon.svg",
+  }
 };
 
 export default function RootLayout({
