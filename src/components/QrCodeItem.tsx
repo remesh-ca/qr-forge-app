@@ -1,13 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from "react";
-import QRCodeStyling, { Options as QRCodeStylingOptions } from "qr-code-styling";
+import { useEffect, useRef, useState } from "react";
+import QRCodeStyling, {
+  Options as QRCodeStylingOptions,
+} from "qr-code-styling";
 import { QrOptions } from "./Sidebar";
 
 interface QrCodeItemProps {
   code: string;
-  qrOptions: QrOptions; // Still need qrOptions for colors/logo
+  qrOptions: QrOptions;
 }
+
+const FIXED_DISPLAY_SIZE = 150;
 
 export default function QrCodeItem({ code, qrOptions }: QrCodeItemProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,8 +19,8 @@ export default function QrCodeItem({ code, qrOptions }: QrCodeItemProps) {
   useEffect(() => {
     if (ref.current) {
       const options: QRCodeStylingOptions = {
-        width: 150, // Fixed display size
-        height: 150, // Fixed display size
+        width: FIXED_DISPLAY_SIZE,
+        height: FIXED_DISPLAY_SIZE,
         data: code,
         margin: 5,
         type: qrOptions.fileExtension === "svg" ? "svg" : "canvas",
@@ -32,12 +36,25 @@ export default function QrCodeItem({ code, qrOptions }: QrCodeItemProps) {
           imageSize: 0.4,
         },
       };
-      
-      const qrCode = new QRCodeStyling(options);
-      ref.current.innerHTML = ""; // Clear previous QR code
-      qrCode.append(ref.current);
-    }
-  }, [code, qrOptions]); // qrOptions is still a dependency for colors/logo
 
-  return <div ref={ref} />;
+      const qrCode = new QRCodeStyling(options);
+      ref.current.innerHTML = "";
+      qrCode.append(ref.current);
+
+      const qrElement =
+        ref.current.querySelector("canvas") || ref.current.querySelector("svg");
+      if (qrElement) {
+        qrElement.style.width = "100%";
+        qrElement.style.height = "auto";
+        qrElement.style.display = "block";
+      }
+    }
+  }, [code, qrOptions]);
+
+  return (
+    <div
+      ref={ref}
+      className="w-full flex flex-col justify-center items-center aspect-square"
+    ></div>
+  );
 }

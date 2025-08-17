@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
 import { useEffect, useRef } from "react";
-import QRCodeStyling, { Options as QRCodeStylingOptions } from "qr-code-styling";
+import QRCodeStyling, {
+  Options as QRCodeStylingOptions,
+} from "qr-code-styling";
 import { QrOptions } from "./Sidebar";
 
 interface QrPreviewProps {
   qrOptions: QrOptions;
 }
+
+const FIXED_PREVIEW_SIZE = 150;
 
 export default function QrPreview({ qrOptions }: QrPreviewProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,8 +18,8 @@ export default function QrPreview({ qrOptions }: QrPreviewProps) {
   useEffect(() => {
     if (ref.current) {
       const options: QRCodeStylingOptions = {
-        width: 150, // Fixed display size
-        height: 150, // Fixed display size
+        width: FIXED_PREVIEW_SIZE,
+        height: FIXED_PREVIEW_SIZE,
         data: "Preview",
         margin: 5,
         type: qrOptions.fileExtension === "svg" ? "svg" : "canvas",
@@ -31,12 +35,25 @@ export default function QrPreview({ qrOptions }: QrPreviewProps) {
           imageSize: 0.4,
         },
       };
-      
+
       const qrCode = new QRCodeStyling(options);
       ref.current.innerHTML = "";
       qrCode.append(ref.current);
+
+      const qrElement =
+        ref.current.querySelector("canvas") || ref.current.querySelector("svg");
+      if (qrElement) {
+        qrElement.style.width = "100%";
+        qrElement.style.height = "auto";
+        qrElement.style.display = "block";
+      }
     }
   }, [qrOptions]);
 
-  return <div ref={ref} />;
+  return (
+    <div
+      ref={ref}
+      className="w-full flex flex-col justify-center items-center aspect-square"
+    ></div>
+  );
 }
