@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import FileUpload from "./FileUpload";
@@ -22,7 +22,7 @@ export default function QrGeneratorPage() {
   const [qrOptions, setQrOptions] = useState<QrOptions>({
     foregroundColor: "#000000",
     backgroundColor: "#ffffff",
-    size: 200,
+    size: 200, 
     fileExtension: "png",
   });
 
@@ -38,11 +38,8 @@ export default function QrGeneratorPage() {
     let hasLongQrCode = false;
     const MAX_QR_CODE_LENGTH = 500;
 
-    const codes = csvData.rows.map((row) => {
-      const combinedText = selectedColumns
-        .map((col) => row[col])
-        .join(" ")
-        .trim();
+    const codes = csvData.rows.map(row => {
+      const combinedText = selectedColumns.map(col => row[col]).join(' ').trim();
       if (combinedText.length > MAX_QR_CODE_LENGTH) {
         hasLongQrCode = true;
       }
@@ -58,7 +55,7 @@ export default function QrGeneratorPage() {
     } else {
       toast.success("QR Codes generated successfully!");
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDownloadZip = async () => {
@@ -69,11 +66,9 @@ export default function QrGeneratorPage() {
 
     const zip = new JSZip();
     const promises = qrCodes.map((code, index) => {
-      const qrCodeElement = document.getElementById(
-        `qr-code-container-${index}`
-      );
+      const qrCodeElement = document.getElementById(`qr-code-container-${index}`);
       const canvas = qrCodeElement?.querySelector("canvas");
-
+      
       if (canvas) {
         return new Promise<void>((resolve) => {
           canvas.toBlob((blob) => {
@@ -103,18 +98,14 @@ export default function QrGeneratorPage() {
     const doc = new jsPDF();
     const margin = 10;
     const qrSize = 50;
-    const qrPerPage = Math.floor(
-      (doc.internal.pageSize.height - margin * 2) / (qrSize + margin)
-    );
+    const qrPerPage = Math.floor((doc.internal.pageSize.height - margin * 2) / (qrSize + margin));
 
     qrCodes.forEach((code, index) => {
       if (index > 0 && index % qrPerPage === 0) {
         doc.addPage();
       }
-
-      const qrCodeElement = document.getElementById(
-        `qr-code-container-${index}`
-      );
+      
+      const qrCodeElement = document.getElementById(`qr-code-container-${index}`);
       const canvas = qrCodeElement?.querySelector("canvas");
 
       if (canvas) {
@@ -131,22 +122,24 @@ export default function QrGeneratorPage() {
 
   const handleSetQrOptions = (options: QrOptions) => {
     setQrOptions(options);
-  };
+  }
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       <div className="flex-grow">
         {!csvData ? (
           <FileUpload onUpload={handleFileUpload} />
-        ) : qrCodes.length === 0 ? (
-          <DataTable data={csvData} />
         ) : (
-          <QrGrid codes={qrCodes} qrOptions={qrOptions} />
+          qrCodes.length === 0 ? (
+            <DataTable data={csvData} />
+          ) : (
+            <QrGrid codes={qrCodes} qrOptions={qrOptions} />
+          )
         )}
       </div>
       {csvData && (
         <aside className="lg:w-1/3 xl:w-1/4">
-          <Sidebar
+          <Sidebar 
             headers={csvData.headers}
             selectedColumns={selectedColumns}
             setSelectedColumns={setSelectedColumns}

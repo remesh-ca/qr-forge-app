@@ -48,7 +48,7 @@ export default function QrGrid({ codes, qrOptions }: QrGridProps) {
   };
 
   return (
-    <Card>
+    <Card className="flex-grow lg:sticky lg:top-8">
       <CardHeader>
         <CardTitle>Step 3: Your QR Codes</CardTitle>
         <CardDescription>

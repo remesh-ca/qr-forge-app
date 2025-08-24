@@ -20,7 +20,7 @@ interface DataTableProps {
 
 export default function DataTable({ data }: DataTableProps) {
   return (
-    <Card>
+    <Card className="flex-grow lg:sticky lg:top-8">
       <CardHeader>
         <CardTitle>Step 2: Preview Your Data</CardTitle>
         <CardDescription>
