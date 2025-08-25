@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 type CsvData = {
   headers: string[];
@@ -28,7 +27,7 @@ export default function DataTable({ data }: DataTableProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[400px] w-full">
+        <div className="max-h-[400px] overflow-y-auto overflow-x-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -55,7 +54,7 @@ export default function DataTable({ data }: DataTableProps) {
               )}
             </TableBody>
           </Table>
-        </ScrollArea>
+        </div>
       </CardContent>
     </Card>
   );
